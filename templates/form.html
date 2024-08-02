@@ -1,12 +1,35 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sentiment Analysis</title>
+        <link rel="stylesheet" href="static/styles.css">
     </head>
     <body>
+        <div class="container">
+            <header>
+                <h1>Sentiment Analysis</h1>
+            </header>
+            <main>
         <form method="POST">
             <textarea name="user_text" rows="5"></textarea>
             <input type="submit" value="Analyze Text">
+            {% with sentiments = get_flashed_messages() %}
+            {% if sentiments %}
+                {% for sentiment in sentiments %}
+                <p>Positive: {{ sentiment['pos']* 100 }} %</p>
+                <p>Negative: {{ sentiment['neg']* 100 }} %</p>
+                <p>Neutral: {{ sentiment['neu']* 100 }} %</p>
+                <p>Compound: {{ sentiment['compound']* 100 }} %</p>
+
+                <p>Customer model positive: {{ sentiment['custom model positive'] }}</pp>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
         </form>
+        </main>
+        </div>
     </body>
 </html>
